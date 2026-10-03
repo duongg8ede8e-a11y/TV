@@ -11,3 +11,7 @@ lib-*.aar
 
 __pycache__/
 *.pyc
+
+# 本地 CI 复现用的工具链 / 官方底包 / 构建产物（几百 MB，不入库）
+.citools/
+build_log.txt

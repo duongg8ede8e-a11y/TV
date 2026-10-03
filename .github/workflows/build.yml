@@ -29,7 +29,8 @@ jobs:
         run: |
           mkdir -p tools release_apks
           # Download Apktool & Uber-APK-Signer
-          curl -sL https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar -o tools/apktool.jar
+          # Apktool 3.x 才能正确解出 state_dragged / state_swiped 这类属性并保留其资源 ID
+          curl -sL https://github.com/iBotPeaches/Apktool/releases/download/v3.0.3/apktool_3.0.3.jar -o tools/apktool.jar
           curl -sL https://github.com/patrickfav/uber-apk-signer/releases/download/v1.3.0/uber-apk-signer-1.3.0.jar -o tools/uber-apk-signer.jar
           
           # Download official release APKs (v5.6.8)
@@ -53,8 +54,8 @@ jobs:
       - name: Rebuild Beautified APKs
         run: |
           echo "Rebuilding APKs with updated UI..."
-          java -jar tools/apktool.jar b apk_arm64 -o unsigned_arm64.apk --use-aapt2
-          java -jar tools/apktool.jar b apk_armv7 -o unsigned_armv7.apk --use-aapt2
+          java -jar tools/apktool.jar b apk_arm64 -o unsigned_arm64.apk
+          java -jar tools/apktool.jar b apk_armv7 -o unsigned_armv7.apk
           ls -lh unsigned_*.apk
 
       - name: Sign APKs

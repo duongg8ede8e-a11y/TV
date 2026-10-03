@@ -40,6 +40,16 @@ def merge_xml_resources(source_file, target_file, tag_name='color'):
     print(f"Merged {tag_name} items from {source_file} into {target_file}")
 
 def apply_ui_patches(apk_dir, project_dir):
+    # 0. Fix AndroidManifest.xml: remove android:pageSizeCompat (Android 15+ 16KB page attribute not in apktool framework)
+    manifest_file = os.path.join(apk_dir, 'AndroidManifest.xml')
+    if os.path.exists(manifest_file):
+        with open(manifest_file, 'r', encoding='utf-8') as f:
+            manifest_content = f.read()
+        cleaned_manifest = re.sub(r'\s*android:pageSizeCompat="[^"]*"', '', manifest_content)
+        with open(manifest_file, 'w', encoding='utf-8') as f:
+            f.write(cleaned_manifest)
+        print(f"Patched {manifest_file} (removed pageSizeCompat)")
+
     res_dir = os.path.join(apk_dir, 'res')
     if not os.path.exists(res_dir):
         raise FileNotFoundError(f"Res dir not found at {res_dir}")

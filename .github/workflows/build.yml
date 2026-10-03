@@ -64,8 +64,13 @@ jobs:
           java -jar tools/uber-apk-signer.jar -a unsigned_armv7.apk --allowResign -o release_apks/
           
           # Rename to clean filenames
-          mv release_apks/unsigned_arm64-aligned-debugSigned.apk release_apks/FongMi-TV-Mobile-arm64_v8a-Beautified.apk
-          mv release_apks/unsigned_armv7-aligned-debugSigned.apk release_apks/FongMi-TV-Mobile-armeabi_v7a-Beautified.apk
+          ls -la release_apks/
+          for f in release_apks/*arm64*.apk; do
+            if [ -f "$f" ]; then mv "$f" release_apks/FongMi-TV-Mobile-arm64_v8a-Beautified.apk; fi
+          done
+          for f in release_apks/*armv7*.apk; do
+            if [ -f "$f" ]; then mv "$f" release_apks/FongMi-TV-Mobile-armeabi_v7a-Beautified.apk; fi
+          done
           ls -lh release_apks/*.apk
 
       - name: Upload Beautified APK Artifacts

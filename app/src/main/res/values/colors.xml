@@ -1,0 +1,57 @@
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="black_05">#0D000000</color>
+    <color name="black_10">#1A000000</color>
+    <color name="black_15">#26000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_80">#CC000000</color>
+    <color name="black_90">#E6000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_05">#0DFFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
+
+    <!-- Modern Streaming Cinema Palette (Netflix / Apple TV+ aesthetic) -->
+    <color name="bg_dark_cinema">#0B0F17</color>
+    <color name="bg_dark_gradient_top">#131B28</color>
+    <color name="bg_card_surface">#141A24</color>
+    <color name="bg_card_surface_hover">#1E2638</color>
+    <color name="bg_card_border">#1E2738</color>
+    <color name="bg_card_border_highlight">#38BDF8</color>
+    <color name="bg_glass_dock">#F20B0F17</color>
+    <color name="bg_glass_card">#CC141A24</color>
+    <color name="bg_glass_scrim_start">#D9000000</color>
+    <color name="bg_glass_scrim_end">#F20B0F17</color>
+    <color name="bg_frosted_chip">#1F293D</color>
+    <color name="bg_frosted_chip_selected">#2638BDF8</color>
+
+    <!-- Vibrant Streaming Accents -->
+    <color name="accent_stream">#38BDF8</color>
+    <color name="accent_stream_glow">#3338BDF8</color>
+    <color name="accent_stream_pill">#1A38BDF8</color>
+    <color name="accent_stream_dark">#0284C7</color>
+    <color name="accent_stream_amber">#F59E0B</color>
+
+    <!-- Text & Hierarchy Tokens -->
+    <color name="text_primary_slate">#F8FAFC</color>
+    <color name="text_secondary_slate">#94A3B8</color>
+    <color name="text_tertiary_slate">#64748B</color>
+    <color name="stroke_card_glow">#4038BDF8</color>
+    <color name="divider_dark">#1A2536</color>
+
+</resources>

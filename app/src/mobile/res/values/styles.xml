@@ -1,0 +1,62 @@
+<resources>
+
+    <style name="Theme.Base" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/bg_dark_cinema</item>
+        <item name="android:colorBackground">@color/bg_dark_cinema</item>
+        <item name="colorSurface">@color/bg_card_surface</item>
+        <item name="colorSurfaceVariant">@color/bg_card_surface_hover</item>
+        <item name="colorPrimary">@color/accent_stream</item>
+        <item name="colorSecondary">@color/accent_stream</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="Theme.App" parent="Theme.Base" />
+
+    <style name="Theme.Crash" parent="Theme.Base">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@color/bg_dark_cinema</item>
+    </style>
+
+    <style name="Control">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shape_control_chip</item>
+        <item name="android:textColor">@color/selector_control</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+        <item name="android:layout_marginStart">3dp</item>
+        <item name="android:layout_marginEnd">3dp</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@drawable/bg_bottom_nav</item>
+        <item name="elevation">0dp</item>
+        <item name="itemIconTint">@color/selector_nav</item>
+        <item name="itemTextColor">@color/selector_nav</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.App.BottomNavigation.ActiveIndicator</item>
+        <item name="labelVisibilityMode">unlabeled</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/accent_stream_pill</item>
+        <item name="android:width">48dp</item>
+        <item name="android:height">32dp</item>
+    </style>
+
+    <style name="ToolbarTextAppearance" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary_slate</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="titleTextColor">@color/text_primary_slate</item>
+    </style>
+
+</resources>

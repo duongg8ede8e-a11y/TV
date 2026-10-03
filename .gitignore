@@ -8,3 +8,6 @@
 lib-*.aar
 /Release
 /docs
+
+__pycache__/
+*.pyc

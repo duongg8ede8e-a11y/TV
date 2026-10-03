@@ -19,27 +19,58 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'
 
       - name: Setup Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Accept Android SDK Licenses
+      - name: Download Tools & Official Base APK
         run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          mkdir -p tools release_apks
+          # Download Apktool & Uber-APK-Signer
+          curl -sL https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar -o tools/apktool.jar
+          curl -sL https://github.com/patrickfav/uber-apk-signer/releases/download/v1.3.0/uber-apk-signer-1.3.0.jar -o tools/uber-apk-signer.jar
+          
+          # Download official release APKs (v5.6.8)
+          echo "Downloading official base APKs..."
+          curl -sL https://github.com/FongMi/Release/releases/download/5.6.8/mobile-arm64_v8a.apk -o base_arm64.apk
+          curl -sL https://github.com/FongMi/Release/releases/download/5.6.8/mobile-armeabi_v7a.apk -o base_armv7.apk
+          ls -lh base_*.apk
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Decompile Base APKs
+        run: |
+          echo "Decompiling resources (-s mode preserves original DEX & native libs)..."
+          java -jar tools/apktool.jar d base_arm64.apk -o apk_arm64 -s -f
+          java -jar tools/apktool.jar d base_armv7.apk -o apk_armv7 -s -f
 
-      - name: Build Mobile Debug APK
-        run: ./gradlew assembleMobileDebug --stacktrace
+      - name: Inject Beautified UI Resources
+        run: |
+          echo "Applying modern streaming cinema UI patches..."
+          python patch_apk.py apk_arm64
+          python patch_apk.py apk_armv7
 
-      - name: Upload APK Artifact
+      - name: Rebuild Beautified APKs
+        run: |
+          echo "Rebuilding APKs with updated UI..."
+          java -jar tools/apktool.jar b apk_arm64 -o unsigned_arm64.apk --use-aapt2
+          java -jar tools/apktool.jar b apk_armv7 -o unsigned_armv7.apk --use-aapt2
+          ls -lh unsigned_*.apk
+
+      - name: Sign APKs
+        run: |
+          echo "Signing APKs with debug signature..."
+          java -jar tools/uber-apk-signer.jar -a unsigned_arm64.apk --allowResign -o release_apks/
+          java -jar tools/uber-apk-signer.jar -a unsigned_armv7.apk --allowResign -o release_apks/
+          
+          # Rename to clean filenames
+          mv release_apks/unsigned_arm64-aligned-debugSigned.apk release_apks/FongMi-TV-Mobile-arm64_v8a-Beautified.apk
+          mv release_apks/unsigned_armv7-aligned-debugSigned.apk release_apks/FongMi-TV-Mobile-armeabi_v7a-Beautified.apk
+          ls -lh release_apks/*.apk
+
+      - name: Upload Beautified APK Artifacts
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: FongMi-TV-Mobile-Beautified-APK
-          path: app/build/outputs/apk/**/*.apk
+          name: FongMi-TV-Mobile-Beautified-APKs
+          path: release_apks/*.apk
           retention-days: 14

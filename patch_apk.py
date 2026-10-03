@@ -49,15 +49,11 @@ def apply_ui_patches(apk_dir, project_dir):
     target_colors = os.path.join(res_dir, 'values', 'colors.xml')
     merge_xml_resources(source_colors, target_colors, 'color')
 
-    # 2. Merge styles
-    source_styles_main = os.path.join(project_dir, 'app', 'src', 'main', 'res', 'values', 'styles.xml')
-    target_styles = os.path.join(res_dir, 'values', 'styles.xml')
-    merge_xml_resources(source_styles_main, target_styles, 'style')
+    # NOTE: Do NOT inject styles.xml — new styles that reference Theme.AppCompat parents
+    # break aapt2 public.xml symbol resolution when re-linking the decompiled APK.
+    # The APK already has AppCompat styles merged from its AAR dependencies.
 
-    source_styles_mobile = os.path.join(project_dir, 'app', 'src', 'mobile', 'res', 'values', 'styles.xml')
-    merge_xml_resources(source_styles_mobile, target_styles, 'style')
-
-    # 3. Copy drawables, colors, layouts
+    # 2. Copy drawables, colors, layouts
     copy_dirs = [
         (os.path.join(project_dir, 'app', 'src', 'main', 'res', 'drawable'), os.path.join(res_dir, 'drawable')),
         (os.path.join(project_dir, 'app', 'src', 'mobile', 'res', 'drawable'), os.path.join(res_dir, 'drawable')),
